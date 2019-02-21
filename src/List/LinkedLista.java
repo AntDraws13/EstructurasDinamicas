@@ -237,7 +237,18 @@ public class LinkedLista<T extends Comparable<T>> implements Listas<T> {
     @Override
     public boolean Remove(Node<T> node) {
         return Remove(node.getValue());
+    }
 
+    @Override
+    public boolean RemoveAtStart() throws isEmptyException {
+        try{
+            isEmpty();
+            Node<T> tmp = head.getNext();
+            head.setNext(tmp.getNext());
+            return true;
+        } catch (isEmptyException e){
+            throw new isEmptyException("is empty");
+        }
     }
 
     @Override

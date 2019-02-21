@@ -35,6 +35,8 @@ public interface Listas<T extends Comparable<T>> extends Iterable<T> {
 
     boolean Remove(Node<T> node);
 
+    boolean RemoveAtStart() throws isEmptyException;
+
     Node<T> getElementAt(int value);
 
     boolean isEmpty() throws isEmptyException;

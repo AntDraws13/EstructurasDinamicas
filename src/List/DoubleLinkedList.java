@@ -1,14 +1,21 @@
 package List;
 
 import Excepciones.isEmptyException;
+import Excepciones.isFullException;
 import Nodes.Node;
+import Stack.Stacks;
 
 import java.util.Iterator;
 
 public class DoubleLinkedList<T extends Comparable<T>> implements Iterable<T>, Comparable<T>, Listas<T> {
 
     private Node<T> head, tail;
-    private long lenght;
+    private int lenght, top, size;
+
+
+    public int getTop() {
+        return top;
+    }
 
     public DoubleLinkedList() {
         head = new Node<>();
@@ -24,10 +31,16 @@ public class DoubleLinkedList<T extends Comparable<T>> implements Iterable<T>, C
         lenght++;
     }
 
+    public DoubleLinkedList(long size){
+        head = new Node<>();
+        tail = new Node<>();
+        this.size = lenght;
+        this.top = -1;
+    }
+
     public DoubleLinkedList(Node<T> node) {
         this(node.getValue());
     }
-
 
     public boolean Add(T value) {
         Node<T> _new = new Node<>(value);
@@ -230,6 +243,11 @@ public class DoubleLinkedList<T extends Comparable<T>> implements Iterable<T>, C
     }
 
     @Override
+    public boolean RemoveAtStart() throws isEmptyException {
+        return Remove(getElementAt(0));
+    }
+
+    @Override
     public Node<T> getElementAt(int value) {
         return getElementAt(head, 0, value);
     }
@@ -398,5 +416,9 @@ public class DoubleLinkedList<T extends Comparable<T>> implements Iterable<T>, C
                 return sub_head.getValue();
             }
         };
+    }
+
+    public void setLenght(int lenght) {
+        this.lenght = lenght;
     }
 }
