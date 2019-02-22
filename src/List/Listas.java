@@ -5,43 +5,43 @@ import Nodes.Node;
 
 import java.util.Iterator;
 
-public interface Listas<T extends Comparable<T>> extends Iterable<T> {
+public interface Listas<E extends Comparable<E>> extends Iterable<E> {
 
-    boolean Add(T value);
+    boolean Add(E value);
 
-    boolean Add(Node<T> node);
+    boolean Add(Node<E> node);
 
-    boolean AddAtStart(T value);
+    boolean AddAtStart(E value);
 
-    boolean AddAtStart(Node<T> node);
+    boolean AddAtStart(Node<E> node);
 
-    boolean AddAt(int position, T value);
+    boolean AddAt(int position, E value);
 
-    boolean AddAt(Node<T> value, int position);
+    boolean AddAt(Node<E> value, int position);
 
-    boolean AddAfter(T after, T value);
+    boolean AddAfter(E after, E value);
 
-    boolean AddBefore(T before, T value);
+    boolean AddBefore(E before, E value);
 
-    boolean RemoveAll(T value);
+    boolean RemoveAll(E value);
 
-    boolean RemoveBefore(Node<T> node);
+    boolean RemoveBefore(Node<E> node);
 
-    boolean RemoveBefore(T value);
+    boolean RemoveBefore(E value);
 
-    boolean RemoveAfter(T value);
+    boolean RemoveAfter(E value);
 
-    boolean Remove(T value);
+    boolean Remove(E value);
 
-    boolean Remove(Node<T> node);
+    boolean Remove(Node<E> node);
 
     boolean RemoveAtStart() throws isEmptyException;
 
-    Node<T> getElementAt(int value);
+    Node<E> getElementAt(int value);
 
     boolean isEmpty() throws isEmptyException;
 
     long getLength();
 
-    Iterator<T> iterator();
+    Iterator<E> iterator();
 }

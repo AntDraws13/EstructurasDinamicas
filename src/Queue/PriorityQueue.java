@@ -7,7 +7,7 @@ public class PriorityQueue<T extends QueueArray>{
 
     static QueueArray<Double>[] dobles = new QueueArray[5];
 
-    enum prioridad {alta, regular, media, baja, muy_baja};
+    enum prioridad {muy_alta, alta, media, baja, muy_baja};
 
     public static void insert(int prioridad, double value){
         try{
@@ -39,10 +39,10 @@ public class PriorityQueue<T extends QueueArray>{
 
     public static void main(String[] args) {
         initD();
-        insert(prioridad.alta.ordinal(), 1d);
-        insert(prioridad.alta.ordinal(), 2d);
-        insert(prioridad.alta.ordinal(), 3d);
-        insert(prioridad.regular.ordinal(), 4d);
+        insert(prioridad.muy_alta.ordinal(), 1d);
+        insert(prioridad.muy_alta.ordinal(), 2d);
+        insert(prioridad.muy_alta.ordinal(), 3d);
+        insert(prioridad.media.ordinal(), 4d);
         insert(prioridad.media.ordinal(), 5d);
         insert(prioridad.baja.ordinal(), 6d);
         insert(prioridad.muy_baja.ordinal(), 7d);
