@@ -1,8 +1,6 @@
 package app;
 
-import Excepciones.isEmptyException;
-import Stack.StackDoubleList;
-import Stack.Stacks;
+import Queue.*;
 
 /**
  * @author antdr
@@ -10,26 +8,36 @@ import Stack.Stacks;
 
 
 public class Main {
-    public static Stacks<Integer> pila, pila2;
-    public static void main(String[] args) throws isEmptyException {
-        pila = new StackDoubleList<>(5);
-        pila2 = new StackDoubleList<>(5);
+    private static Queue<Integer> queue;
+    public static void main(String[] args) {
+        queue = new QueueSimpleList<Integer>(5);
+        queue.enqueue(4);
+        queue.enqueue(8);
+        queue.enqueue(0);
+        queue.enqueue(0);
+        queue.enqueue(3);
+        System.out.println(queue.dequeue()+ ": Deque element");
+        System.out.println(queue.front()+ ": Next to dequeue");
+        System.out.println(queue.last()+ ": Last to dequeue");
+        System.out.println(queue.dequeue()+ ": Deque element");
+        System.out.println(queue.front()+ ": Next to dequeue");
+        System.out.println(queue.last()+ ": Last to dequeue");
+        queue.enqueue(4);
+        queue.enqueue(5);
+        queue.enqueue(9);  //Esta llamada produce un isFull exception
+        System.out.println(queue.last()+ ": Last to dequeue");
+        System.out.println(queue.dequeue()+ ": Deque element");
+        System.out.println(queue.dequeue()+ ": Deque element");
+        System.out.println(queue.dequeue()+ ": Deque element");
+        System.out.println(queue.dequeue()+ ": Deque element");
+        System.out.println(queue.dequeue()+ ": Deque element");
+        System.out.println(queue.dequeue()+ ": Deque element"); //Esta llamada produce un isEmptyException
 
-        for (int i=0; i<5; i++){
-            pila.push(i+1);
-            pila2.push(i+1);
+
+        System.out.println("Se remueven todos los valores del queue: ");
+        queue.removeAll();
+        for (Integer i:queue){
+            System.out.println(i);
         }
-
-        pila.push(5);
-        pila2.push(5);
-
-        if(pila.compareTo(pila2) == 0) System.out.println("Equal Stacks");
-
-        System.out.println("Poped Value from pila(1): "+ pila.pop());
-
-        System.out.println("Peaked value on pila(2): "+pila2.peak());
-
-        if(!(pila.compare(pila, pila2) == 0)) System.out.println("Stacks aren't equal.");
-
     }
 }

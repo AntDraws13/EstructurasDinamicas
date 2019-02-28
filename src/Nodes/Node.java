@@ -51,4 +51,25 @@ public class Node<T extends Comparable<T>> {
     public void setNext(Node<T> next) {
         this.next = next;
     }
+
+
+    public Node<T> getLeft() {
+        return prev;
+    }
+
+    public void setLeft(Node<T> prev) {
+        this.prev = prev;
+    }
+
+    public Node<T> getRight() {
+        return next;
+    }
+
+    public void setRight(Node<T> next) {
+        this.next = next;
+    }
+
+
+
+
 }

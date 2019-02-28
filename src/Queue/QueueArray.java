@@ -2,6 +2,7 @@ package Queue;
 
 import Excepciones.isEmptyException;
 import Excepciones.isFullException;
+import List.LinkedLista;
 
 import java.lang.reflect.Array;
 import java.util.Iterator;
@@ -13,6 +14,7 @@ public class QueueArray<T extends Comparable<T>> implements Queue<T>, Iterable<T
     private int front = -1;
     private int back = 0;
     private int count;
+
     private Class<T> type = null;
 
     public QueueArray(Class<T> type, int size) {
@@ -27,7 +29,7 @@ public class QueueArray<T extends Comparable<T>> implements Queue<T>, Iterable<T
 
 
     @Override
-    public boolean enqueue(T value) throws isFullException {
+    public boolean enqueue(T value){
         try {
             isFull();
             count++;
@@ -40,7 +42,7 @@ public class QueueArray<T extends Comparable<T>> implements Queue<T>, Iterable<T
     }
 
     @Override
-    public T dequeue() throws isEmptyException {
+    public T dequeue() {
         try{
             isEmpty();
             count--;
@@ -52,7 +54,7 @@ public class QueueArray<T extends Comparable<T>> implements Queue<T>, Iterable<T
     }
 
     @Override
-    public boolean removeAll() throws isEmptyException {
+    public boolean removeAll(){
         return false;
     }
 
@@ -69,13 +71,17 @@ public class QueueArray<T extends Comparable<T>> implements Queue<T>, Iterable<T
     }
 
     @Override
-    public T front() throws isEmptyException {
+    public T front() {
         return queue[(front+1) % size];
     }
 
     @Override
-    public T last() throws isEmptyException {
+    public T last() {
         return queue[(back-1) % size];
+    }
+
+    public T[] getQueue() {
+        return this.queue;
     }
 
     @Override

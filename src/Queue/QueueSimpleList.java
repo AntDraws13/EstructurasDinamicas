@@ -2,12 +2,12 @@ package Queue;
 
 import Excepciones.isEmptyException;
 import Excepciones.isFullException;
-import List.DoubleLinkedList;
+import List.LinkedLista;
 import List.Listas;
 
 import java.util.Iterator;
 
-public class QueueDoubleList<T extends Comparable<T>> implements Queue<T> {
+public class QueueSimpleList<T extends Comparable<T>> implements Queue<T>  {
 
     private Listas<T> queue;
     private int size;
@@ -15,9 +15,9 @@ public class QueueDoubleList<T extends Comparable<T>> implements Queue<T> {
     private int back = 0;
     private int count;
 
-    public QueueDoubleList(int size){
+    public QueueSimpleList(int size){
         this.size = size;
-        queue = new DoubleLinkedList<>();
+        queue = new LinkedLista<>();
         count = 0;
         for (int i = 0; i< size; i++){
             queue.Add((T)null);
@@ -51,7 +51,7 @@ public class QueueDoubleList<T extends Comparable<T>> implements Queue<T> {
 
     @Override
     public boolean removeAll() {
-        for (int i = 0; i <size; i ++){
+        for (int i = 0; i <size; i++){
             queue.getElementAt(i).setValue((T) null);
         }
         return true;
@@ -95,5 +95,4 @@ public class QueueDoubleList<T extends Comparable<T>> implements Queue<T> {
     public Iterator<T> iterator() {
         return queue.iterator();
     }
-
 }

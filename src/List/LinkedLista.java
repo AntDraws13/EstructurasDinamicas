@@ -82,10 +82,16 @@ public class LinkedLista<T extends Comparable<T>> implements Listas<T> {
     public boolean AddAt(int position, T value) {
         try {
             isEmpty();
+            Node<T> _new = new Node<>(value);
             if (position >= lenght) {
                 return false;
-            } else {
-                Node<T> _new = new Node<>(value);
+            }
+            else if(position == 0){
+                head.setNext(_new);
+                lenght++;
+                return true;
+            }
+            else {
                 Node<T> next = getElementAt(position);
                 Node<T> prev = getElementAt((position - 1));
                 prev.setNext(_new);
