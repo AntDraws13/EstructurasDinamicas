@@ -54,6 +54,9 @@ public class QueueSimpleList<T extends Comparable<T>> implements Queue<T>  {
         for (int i = 0; i <size; i++){
             queue.getElementAt(i).setValue((T) null);
         }
+        front = -1;
+        back = 0;
+        count = 0;
         return true;
     }
 

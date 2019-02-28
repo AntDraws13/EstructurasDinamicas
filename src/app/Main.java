@@ -2,42 +2,46 @@ package app;
 
 import Queue.*;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * @author antdr
  */
 
 
 public class Main {
-    private static Queue<Integer> queue;
+
     public static void main(String[] args) {
-        queue = new QueueSimpleList<Integer>(5);
-        queue.enqueue(4);
-        queue.enqueue(8);
-        queue.enqueue(0);
-        queue.enqueue(0);
-        queue.enqueue(3);
-        System.out.println(queue.dequeue()+ ": Deque element");
-        System.out.println(queue.front()+ ": Next to dequeue");
-        System.out.println(queue.last()+ ": Last to dequeue");
-        System.out.println(queue.dequeue()+ ": Deque element");
-        System.out.println(queue.front()+ ": Next to dequeue");
-        System.out.println(queue.last()+ ": Last to dequeue");
-        queue.enqueue(4);
-        queue.enqueue(5);
-        queue.enqueue(9);  //Esta llamada produce un isFull exception
-        System.out.println(queue.last()+ ": Last to dequeue");
-        System.out.println(queue.dequeue()+ ": Deque element");
-        System.out.println(queue.dequeue()+ ": Deque element");
-        System.out.println(queue.dequeue()+ ": Deque element");
-        System.out.println(queue.dequeue()+ ": Deque element");
-        System.out.println(queue.dequeue()+ ": Deque element");
-        System.out.println(queue.dequeue()+ ": Deque element"); //Esta llamada produce un isEmptyException
-
-
-        System.out.println("Se remueven todos los valores del queue: ");
-        queue.removeAll();
-        for (Integer i:queue){
-            System.out.println(i);
+        QueueDoubleListPriority<Integer> queue = new QueueDoubleListPriority<Integer>(5);
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                int rand = Random(1,99);
+                System.out.println("enqueued on " + QueueDoubleListPriority.prioridad.values()[i] + ", " + rand);
+                queue.enqueue(i, rand);
+            }
         }
+        System.out.println("next to dequeue: " + queue.front());
+
+        System.out.println("deque value: " + queue.dequeue());
+
+        System.out.println("next to dequeue: " + queue.front());
+
+        System.out.println("last to dequeue: " + queue.last());
+
+        System.out.println("tried to enqueue value on full queue: ");
+
+        System.out.println("Status:  " + queue.enqueue(3, 2));
+
+        System.out.println("dequeue all values on highest priority until empty exception is thrown, " +
+                "then dequeue on next priority ");
+
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Dequeue: " + queue.dequeue());
+        }
+    }
+
+
+    public static int Random(int min, int max) {
+        return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 }
