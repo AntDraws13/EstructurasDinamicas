@@ -1,6 +1,7 @@
 # EstructurasDinamicas
-Ejercicios para estructura de datos incluyendo listas, pilas, colas y arboles[aún en desarrollo]
-Dentro de src/app/ se encunetran los métodos main para los ejercicios. 
+Ejercicios para estructura de datos incluyendo listas, pilas, colas y arboles.
+Dentro de src/app/ se encunetra el metodo main para declarar los objetos a utilizar
+
 Se utilizo una interfaz en aras de agilizar el proceso y valla que resultó fructoso. 
 
 Los ejercicios extra se pueden realizar sin problema independiente de la implementación de la lista debido a que estas ya no son objetos
@@ -13,7 +14,9 @@ Para declarar un objeto de la interfaz basta con:
   por ejemplo:
   
   Queue<T> queue = new QueueDoubleList<>(int size);
-  
+
+La funcionalidad de listas, pilas, colas y arboles está probada y comprobada. 
+
 //Hinojos Nájera y Flores de la Trinidad
 
 Se hace uso de las clases, atributos y métodos utilizados durante la clase de Estructura de Datos. 
