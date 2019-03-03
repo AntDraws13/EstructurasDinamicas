@@ -36,17 +36,4 @@ public class PriorityQueue<T extends QueueArray> {
             }
         }
     }
-
-    public static void main(String[] args) {
-        initD();
-        insert(prioridad.muy_alta.ordinal(), 1d);
-        insert(prioridad.muy_alta.ordinal(), 2d);
-        insert(prioridad.muy_alta.ordinal(), 3d);
-        insert(prioridad.media.ordinal(), 4d);
-        insert(prioridad.media.ordinal(), 5d);
-        insert(prioridad.baja.ordinal(), 6d);
-        insert(prioridad.muy_baja.ordinal(), 7d);
-        insert(prioridad.alta.ordinal(), 4d);
-        print();
-    }
 }
