@@ -8,7 +8,7 @@ Se hace uso de las clases, atributos y métodos utilizados durante la clase de E
 
 Se tiene que instanciar un objeto de la Interfaz para hacer uso de los métodos dentro de la case específica. 
 
-```` 
+````java 
 //Nodos
 PrintableNode<T> node = new Node(void / T value)
 //Listas
@@ -29,7 +29,7 @@ Tree<Integer> tree = new avlTree(T value);
 
 ## Métodos
 
-````
+````java
 
   Nodos:
   
