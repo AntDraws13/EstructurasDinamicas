@@ -16,7 +16,9 @@ Se hace uso de las clases, atributos y métodos utilizados durante la clase de E
 
 
 Métodos dentro del proyecto: 
-  Listas: 
+
+  Listas:
+  
       Add(value); // Añade valor en la ultima posición 
       AddAtStart(value); // Añade valor en la primera posición 
       AddAt(index, value); // Añade valor en la posición index y recorre las demás posiciones en la lista 
@@ -30,7 +32,9 @@ Métodos dentro del proyecto:
       getElementAt(index); // Obtiene el nodo en la posición index
       isEmpty(); // Indica si la lista está vacia o no 
       getLength(); // Regresa la cantidad de nodos en la lista; 
-  Pilas: 
+      
+  Pilas:
+  
       push(value); // Ingresa a la pila un valor
       pop(); // Regresa el ultimo valor ingresado en la pila, eliminándolo
       peak(); // Regresa el siguiente valor a eliminar de la pila
@@ -38,7 +42,9 @@ Métodos dentro del proyecto:
       isEmpty(); // Verifica si la cola se encunetra vacía 
       getTop(); // Regresa el ultimo valor a eliminar de la pila
       getLength(); // Regresa el numero de elementos dentro de la pila
+      
   Colas:
+  
       enqueue(value); // Añade a la cola el valor
       dequeue(); // Retira de la cola el primer valor ingresado
       removeAll(); // Retira todos los valores de la cola
@@ -46,8 +52,11 @@ Métodos dentro del proyecto:
       isEmpty(); // Verifica si la cola se encunetra vacía 
       front(); // Regresa el valor próximo a eliminar 
       last(); // Regresa el valor ultimo a eliminar
+      
   Árboles:
+  
       bTree:
+      
           insert(value); // Ingresa un valor a el árbol
           update(node); // Actualiza el factor de balance y el nivel del nodo 
           remove(value); // Elimina del arbol el nodo con el valor incidente 
@@ -60,5 +69,7 @@ Métodos dentro del proyecto:
           width(); // Regresa la amplitud del árbol
           between(value, value);
           toString(); // Imprime el arbol de forma estructurada 
+          
       avlTree:
+      
           
