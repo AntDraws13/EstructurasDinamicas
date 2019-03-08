@@ -72,43 +72,43 @@ Tree<Integer> tree = new avlTree(T value);
 ````
 ### Listas:
 ````java
-    boolean Add(E value);
+    boolean Add(T value);
 
-    boolean Add(Node<E> node);
+    boolean Add(Node<T> node);
 
-    boolean AddAtStart(E value);
+    boolean AddAtStart(T value);
 
-    boolean AddAtStart(Node<E> node);
+    boolean AddAtStart(Node<T> node);
 
-    boolean AddAt(int position, E value);
+    boolean AddAt(int position, T value);
 
-    boolean AddAt(Node<E> value, int position);
+    boolean AddAt(Node<T> value, int position);
 
-    boolean AddAfter(E after, E value);
+    boolean AddAfter(T after, T value);
 
-    boolean AddBefore(E before, E value);
+    boolean AddBefore(T before, T value);
 
-    boolean RemoveAll(E value);
+    boolean RemoveAll(T value);
 
-    boolean RemoveBefore(Node<E> node);
+    boolean RemoveBefore(Node<T> node);
 
-    boolean RemoveBefore(E value);
+    boolean RemoveBefore(T value);
 
-    boolean RemoveAfter(E value);
+    boolean RemoveAfter(T value);
 
-    boolean Remove(E value);
+    boolean Remove(T value);
 
-    boolean Remove(Node<E> node);
+    boolean Remove(Node<T> node);
 
     boolean RemoveAtStart() throws isEmptyException;
 
-    Node<E> getElementAt(int value);
+    Node<T> getElementAt(int value);
 
     boolean isEmpty() throws isEmptyException;
 
     long getLength();
 
-    Iterator<E> iterator();
+    Iterator<T> iterator();
 ````
 ### Pilas:
 ````java
