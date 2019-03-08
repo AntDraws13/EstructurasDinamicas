@@ -173,6 +173,4 @@ Tree<Integer> tree = new avlTree(T value);
     int width();
     
     void between(T start, T end);
-
-
 ````
