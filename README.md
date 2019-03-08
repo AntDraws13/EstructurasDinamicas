@@ -29,10 +29,9 @@ Tree<Integer> tree = new avlTree(T value);
 
 ## Métodos
 
-````java
-
-  Nodos:
+### Nodos:
   
+````java
     Node<T> getPrev();
 
     long getCount();
@@ -70,9 +69,9 @@ Tree<Integer> tree = new avlTree(T value);
     int getHeight();
 
     void setHeight(int height);
-
-  Listas:
-  
+````
+### Listas:
+````java
     boolean Add(E value);
 
     boolean Add(Node<E> node);
@@ -110,9 +109,9 @@ Tree<Integer> tree = new avlTree(T value);
     long getLength();
 
     Iterator<E> iterator();
-      
-  Pilas:
-  
+````
+### Pilas:
+````java
     int getTop();
 
     int getLength();
@@ -128,9 +127,9 @@ Tree<Integer> tree = new avlTree(T value);
     T peak();
 
     Listas<T> getPila();
-      
-  Colas: 
-  
+````
+### Colas: 
+````java
     boolean enqueue(T value);
     
     T dequeue();
@@ -144,9 +143,9 @@ Tree<Integer> tree = new avlTree(T value);
     T front();
     
     T last();
-      
-  Árboles:
- 
+````
+###  Árboles:
+````java
     boolean isEmpty() throws isEmptyException;
     
     boolean insert(T value);
