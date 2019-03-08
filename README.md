@@ -1,75 +1,179 @@
-# EstructurasDinamicas
+# Estructuras Dinámicas
 Ejercicios para estructura de datos incluyendo listas, pilas, colas y arboles.
 Dentro de src/app/ se encunetra el metodo main para declarar los objetos a utilizar
 
-Se utilizo una interfaz en aras de agilizar el proceso y valla que resultó fructoso. 
+Se hace uso de las clases, atributos y métodos utilizados durante la clase de Estructura de Datos.
 
-Los ejercicios extra se pueden realizar sin problema independiente de la implementación de la lista debido a que estas ya no son objetos
-espcíficos, pero son objetos de una interfaz, lo cual permite a los ejercicios extra ser polimórficos o "genéricos" hasta cierta extensión.
+## Uso
 
-La funcionalidad de listas, pilas, colas y arboles está probada y comprobada. 
+Se tiene que instanciar un objeto de la Interfaz para hacer uso de los métodos dentro de la case específica. 
 
-//Hinojos Nájera y Flores de la Trinidad
+```` 
+//Nodos
+PrintableNode<T> node = new Node(void / T value)
+//Listas
+Listas<Integer> list = new LinkedLista();
+Listas<Integer> list = new DoubleLinkedList(void / T value / long size);
+//Pilas
+Stacks<Integer> stack = new StackSimpleList(void / T value / int length);
+Stacks<Integer> stack = new StackDoubleList(void / T value / int length);
+//Colas
+Queue<Integer> queue = new QueueArray(Class<T> type | int size);
+Queue<Integer> queue = new QueueSimpleList(int size);
+Queue<Integer> queue = new QueueDoubleList(int size);
+QueueDoubleListPriority<Integer> queue = new QueueDoubleListPriority(int size);
+//Arboles 
+Tree<Integer> tree = new bTree(T value / Node<T> node);
+Tree<Integer> tree = new avlTree(T value);
+````
 
-Se hace uso de las clases, atributos y métodos utilizados durante la clase de Estructura de Datos. 
+## Métodos
 
+````
 
+  Nodos:
+  
+    Node<T> getPrev();
 
-Métodos dentro del proyecto: 
+    long getCount();
+
+    void setCount(long count);
+
+    long getLevel();
+
+    void setLevel(long level);
+
+    void setPrev(Node<T> prev);
+
+    Comparable getValue();
+
+    void setValue(T value);
+
+    Node<T> getNext();
+
+    void setNext(Node<T> next);
+
+    Node<T> getLeft();
+
+    void setLeft(Node<T> prev);
+
+    Node<T> getRight();
+
+    String getText();
+
+    void setRight(Node<T> next);
+
+    int getBf();
+
+    void setBf(int bf);
+
+    int getHeight();
+
+    void setHeight(int height);
 
   Listas:
   
-      Add(value); // Añade valor en la ultima posición 
-      AddAtStart(value); // Añade valor en la primera posición 
-      AddAt(index, value); // Añade valor en la posición index y recorre las demás posiciones en la lista 
-      AddAfter(after, value); // Añade valor después de la primer incidencia de after
-      AddBefore(before, value); // Añade valor antes de la primer incidencia de before
-      Remove(value); // Retira el primer nodo con el valor especificado
-      RemoveAll(value); // Retira todos los nodos con incidencia del valor especificado
-      RemoveBefore(value); // Retira el nodo previo a la primer incidencia del valor especificado
-      RemoveAfter(value); // Retira el nodo posterior a la primer incidencia del valor especificado
-      RemoveAtStart(); // Retira el nodo en la primer posición 
-      getElementAt(index); // Obtiene el nodo en la posición index
-      isEmpty(); // Indica si la lista está vacia o no 
-      getLength(); // Regresa la cantidad de nodos en la lista; 
+    boolean Add(E value);
+
+    boolean Add(Node<E> node);
+
+    boolean AddAtStart(E value);
+
+    boolean AddAtStart(Node<E> node);
+
+    boolean AddAt(int position, E value);
+
+    boolean AddAt(Node<E> value, int position);
+
+    boolean AddAfter(E after, E value);
+
+    boolean AddBefore(E before, E value);
+
+    boolean RemoveAll(E value);
+
+    boolean RemoveBefore(Node<E> node);
+
+    boolean RemoveBefore(E value);
+
+    boolean RemoveAfter(E value);
+
+    boolean Remove(E value);
+
+    boolean Remove(Node<E> node);
+
+    boolean RemoveAtStart() throws isEmptyException;
+
+    Node<E> getElementAt(int value);
+
+    boolean isEmpty() throws isEmptyException;
+
+    long getLength();
+
+    Iterator<E> iterator();
       
   Pilas:
   
-      push(value); // Ingresa a la pila un valor
-      pop(); // Regresa el ultimo valor ingresado en la pila, eliminándolo
-      peak(); // Regresa el siguiente valor a eliminar de la pila
-      isFull(); // Verifica si la cola se encuentra llena
-      isEmpty(); // Verifica si la cola se encunetra vacía 
-      getTop(); // Regresa el ultimo valor a eliminar de la pila
-      getLength(); // Regresa el numero de elementos dentro de la pila
+    int getTop();
+
+    int getLength();
+
+    boolean isEmpty() throws isEmptyException;
+
+    boolean isFull() throws isFullException;
+
+    boolean push(T value);
+
+    T pop() throws isEmptyException;
+
+    T peak();
+
+    Listas<T> getPila();
       
-  Colas:
+  Colas: 
   
-      enqueue(value); // Añade a la cola el valor
-      dequeue(); // Retira de la cola el primer valor ingresado
-      removeAll(); // Retira todos los valores de la cola
-      isFull(); // Verifica si la cola se encuentra llena
-      isEmpty(); // Verifica si la cola se encunetra vacía 
-      front(); // Regresa el valor próximo a eliminar 
-      last(); // Regresa el valor ultimo a eliminar
+    boolean enqueue(T value);
+    
+    T dequeue();
+    
+    boolean removeAll();
+    
+    void isFull() throws isFullException;
+    
+    void isEmpty() throws isEmptyException;
+    
+    T front();
+    
+    T last();
       
   Árboles:
-  
-      bTree:
-      
-          insert(value); // Ingresa un valor a el árbol
-          update(node); // Actualiza el factor de balance y el nivel del nodo 
-          remove(value); // Elimina del arbol el nodo con el valor incidente 
-          depthFirstSearch(); // Recorre el arbol
-          search(value); // Regresa el nodo con el valor incidente 
-          biggest(); // Regresa el valor más grande del árbol  
-          minor(); // Regresa el valor más pequeño del árbol
-          preOrder(); inOrder(); postOrder(); preOrder(); // Todos recorren el árbol
-          height(); // Regresa la cantidad de niveles del árbol 
-          width(); // Regresa la amplitud del árbol
-          between(value, value);
-          toString(); // Imprime el arbol de forma estructurada 
-          
-      avlTree:
-      
-          
+ 
+    boolean isEmpty() throws isEmptyException;
+    
+    boolean insert(T value);
+    
+    boolean insert(Node<T> node);
+    
+    boolean remove(T value);
+
+    T depthFirstSearch();
+    
+    Node<T> search (T value) throws isEmptyException;
+
+    T biggest();
+    
+    T minor();
+
+    void preOrder();
+    
+    void postOrder();
+    
+    void inOrder();
+
+    int height();
+    
+    int width();
+    
+    void between(T start, T end);
+
+
+````
