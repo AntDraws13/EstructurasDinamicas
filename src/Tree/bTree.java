@@ -6,6 +6,7 @@ import Nodes.Node;
 public class bTree<T extends Comparable<T>> implements Tree<T> {
 
     private Node<T> root;
+    private int nodeCount;
 
     public bTree(Node<T> node) {
         this(node.getValue());
@@ -14,7 +15,8 @@ public class bTree<T extends Comparable<T>> implements Tree<T> {
     public bTree(T value) {
         root = new Node<>(value);
         root.setCount(0);
-        root.setLevel(0);
+        root.setHeight(0);
+        nodeCount++;
     }
 
     @Override
@@ -33,6 +35,7 @@ public class bTree<T extends Comparable<T>> implements Tree<T> {
             root.setValue(value);
             return true;
         } else insert(root, value, root.getLevel());
+        nodeCount++;
         return true;
     }
 
@@ -50,7 +53,15 @@ public class bTree<T extends Comparable<T>> implements Tree<T> {
         } else {
             node.setCount(node.getCount() + 1);
         }
+        update(node);
         return node;
+    }
+
+    private void update(Node<T> node) {
+        int leftNodeHeight = (node.getLeft() == null) ? -1 : node.getLeft().getHeight();
+        int rightNodeHeight = (node.getRight() == null) ? -1 : node.getRight().getHeight();
+        node.setHeight(1 + Math.max(leftNodeHeight, rightNodeHeight));
+        node.setBf(rightNodeHeight - leftNodeHeight);
     }
 
     @Override
@@ -61,43 +72,35 @@ public class bTree<T extends Comparable<T>> implements Tree<T> {
     @Override
     public boolean remove(T value) {
         boolean isThere = false;
-        if(search(value) != null) isThere = true;
-        remove(root, value);
+        Node<T> tmp = search(value);
+        if (tmp != null) {
+            isThere = true;
+            remove(tmp, value);
+            nodeCount--;
+        }
         return isThere;
     }
 
-    private Node<T> remove(Node current, T value) {
-        if (current == null) {
-            return null;
-        }
-        if (value.equals(current.getValue())) {
-
-            if(current.getCount() > 0){
-                current.setCount(current.getCount()-1);
-                return current;
+    private Node<T> remove(Node<T> current, T value) {
+        if (current.getCount() > 0) {
+            current.setCount(current.getCount() - 1);
+            return current;
+        } else {
+            if (current.getLeft() == null && current.getRight() == null) {
+                return null;
             }
-            else {
-                if (current.getLeft() == null && current.getRight() == null) {
-                    return null;
-                }
-                if (current.getRight() == null) {
-                    return current.getLeft();
-                }
-                if (current.getLeft() == null) {
-                    return current.getRight();
-                }
-                T smallest = (T) minor(current);
-                current.setValue(smallest);
-                current.setRight(remove(current.getRight(), smallest));
-                return current;
+            if (current.getRight() == null) {
+                return current.getLeft();
             }
-        }
-        if (current.getValue().compareTo(value) > 0) {
-            current.setLeft(remove(current.getLeft(), value));
+            if (current.getLeft() == null) {
+                return current.getRight();
+            }
+            T smallest = minor(current.getRight()).getValue();
+            current.setValue(smallest);
+            current.setRight(remove(current.getRight(), smallest));
+            update(current);
             return current;
         }
-        current.setRight(remove(current.getRight(), value));
-        return current;
     }
 
     @Override
@@ -106,19 +109,14 @@ public class bTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     @Override
-    public T search(T value) {
+    public Node<T> search(T value) {
         return search(root, value);
     }
 
-    private T search(Node<T> node, T value) {
+    private Node<T> search(Node<T> node, T value) {
         if (node == null) return null;
-        if (value.equals(node.getValue())) return node.getValue();
+        if (value.equals(node.getValue())) return node;
         return value.compareTo(node.getValue()) < 0 ? search(node.getLeft(), value) : search(node.getRight(), value);
-    }
-
-    @Override
-    public void reFactor(){
-
     }
 
     @Override
@@ -126,17 +124,17 @@ public class bTree<T extends Comparable<T>> implements Tree<T> {
         return biggest(root);
     }
 
-    private T biggest(Node<T> node){
+    private T biggest(Node<T> node) {
         return node.getRight() == null ? node.getValue() : biggest(node.getRight());
     }
 
     @Override
     public T minor() {
-        return minor(root);
+        return minor(root).getValue();
     }
 
-    private T minor(Node<T> node){
-        return node.getLeft() == null ? node.getValue() : minor(node.getLeft());
+    private Node<T> minor(Node<T> node) {
+        return node.getLeft() == null ? node : minor(node.getLeft());
     }
 
     @Override
@@ -180,12 +178,12 @@ public class bTree<T extends Comparable<T>> implements Tree<T> {
 
     @Override
     public int height() {
-        return 0;
+        return root.getHeight();
     }
 
     @Override
     public int width() {
-        return 0;
+        return this.nodeCount;
     }
 
     @Override

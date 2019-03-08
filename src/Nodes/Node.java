@@ -7,17 +7,7 @@ public class Node<T extends Comparable<T>> implements PrintableNode<T> {
     private T value;
     private Node<T> next;
     private Node<T> prev;
-    private long count = 0, level = 0;
-
-    public Node(T value, Node<T> next, Node<T> prev) {
-        this.value = value;
-        this.next = next;
-        this.prev = prev;
-    }
-    public Node(T value, Node<T> next) {
-        this.value = value;
-        this.next = next;
-    }
+    private long count = 0, level = height;
 
     public Node() {
         this.value = null;
@@ -99,7 +89,7 @@ public class Node<T extends Comparable<T>> implements PrintableNode<T> {
 
     @Override
     public String getText() {
-        return value.toString()+"{"+this.getCount()+"}";
+        return value.toString()+"{"+this.getCount()+", "+this.height+"}";
     }
 
     @Override
@@ -125,5 +115,6 @@ public class Node<T extends Comparable<T>> implements PrintableNode<T> {
     @Override
     public void setHeight(int height) {
         this.height = height;
+        this.level = height;
     }
 }

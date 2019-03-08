@@ -11,8 +11,7 @@ public interface Tree<T extends Comparable<T>> {
     boolean remove(T value);
 
     T depthFirstSearch();
-    T search (T value) throws isEmptyException;
-    void reFactor() throws isEmptyException;
+    Node<T> search (T value) throws isEmptyException;
 
     T biggest();
     T minor();

@@ -1,59 +1,41 @@
 package Tree;
 
+import Excepciones.isEmptyException;
 import Nodes.Node;
 import Nodes.PrintableNode;
 
-public class avlTree<T extends Comparable<T>> implements Iterable<T> {
+public class avlTree<T extends Comparable<T>> implements Tree<T> {
 
+
+    private Node<T> root;
+
+    private int nodeCount = 0;
 
     public avlTree(T value) {
         root = new Node<>(value);
         root.setCount(0);
         root.setLevel(0);
         root.setHeight(0);
+        nodeCount++;
     }
 
-    private Node<T> root;
-
-    private int nodeCount = 0;
-
-    public int height() {
-        if (root == null) return 0;
-        return root.getHeight();
-    }
-
-    public int size() {
-        return nodeCount;
-    }
-
+    @Override
     public boolean isEmpty() {
-        return size() == 0;
+        return width() == 0;
     }
 
-    public boolean contains(T value) {
-        return contains(root, value);
-    }
-
-    private boolean contains(Node<T> node, T value) {
-
-        if (node == null) return false;
-
-        int cmp = value.compareTo(node.getValue());
-
-        if (cmp < 0) return contains(node.getLeft(), value);
-
-        if (cmp > 0) return contains(node.getRight(), value);
-
-        return true;
-
-    }
-
+    @Override
     public boolean insert(T value) {
         if (value == null) return false;
         root = insert(root, value);
         nodeCount++;
         return true;
 
+    }
+
+    @Override
+    public boolean insert(Node<T> node) {
+        return insert(node.getValue());
     }
 
     private Node<T> insert(Node<T> node, T value) {
@@ -73,6 +55,145 @@ public class avlTree<T extends Comparable<T>> implements Iterable<T> {
         update(node);
         return balance(node);
 
+    }
+
+    @Override
+    public boolean remove(T value) {
+        if (value == null) return false;
+        if (search(root, value) != null) {
+            root = remove(root, value);
+            nodeCount--;
+            return true;
+        }
+        return false;
+    }
+
+    private Node<T> remove(Node<T> node, T elem) {
+        if (node == null) return null;
+        if(elem.equals(node.getValue())){
+            if(node.getCount() > 0){
+                node.setCount(node.getCount() - 1);
+                return node;
+            }
+        }
+        int cmp = elem.compareTo(node.getValue());
+        if (cmp < 0) {
+            node.setLeft(remove(node.getLeft(), elem));
+        } else if (cmp > 0) {
+            node.setRight(remove(node.getRight(), elem));
+        } else {
+            if (node.getLeft() == null) {
+                return node.getRight();
+            } else if (node.getRight() == null) {
+                return node.getLeft();
+            } else {
+                if (node.getLeft().getHeight() > node.getRight().getHeight()) {
+                    T successorValue = findMax(node.getLeft());
+                    node.setValue(successorValue);
+                    node.setLeft(remove(node.getLeft(), successorValue));
+                } else {
+                    T successorValue = findMin(node.getRight());
+                    node.setValue(successorValue);
+                    node.setRight(remove(node.getRight(), successorValue));
+                }
+            }
+        }
+        update(node);
+        return balance(node);
+
+    }
+
+    @Override
+    public T depthFirstSearch() {
+        return null;
+    }
+
+    @Override
+    public Node<T> search(T value){
+        return search(root, value);
+    }
+
+    private Node<T> search(Node<T> node, T value) {
+        if (node == null) return null;
+        if (value.equals(node.getValue())) return node;
+        return value.compareTo(node.getValue()) < 0 ? search(node.getLeft(), value) : search(node.getRight(), value);
+    }
+
+    @Override
+    public T biggest() {
+        return findMax(root);
+    }
+
+    @Override
+    public T minor() {
+        return findMin(root);
+    }
+
+    private T findMin(Node<T> node) {
+        while (node.getLeft() != null)
+            node = node.getLeft();
+        return node.getValue();
+    }
+
+    private T findMax(Node<T> node) {
+        while (node.getRight() != null)
+            node = node.getRight();
+        return node.getValue();
+    }
+
+    @Override
+    public void preOrder() {
+        preOrder(root);
+    }
+
+    @Override
+    public void postOrder() {
+        postOrder(root);
+    }
+
+    @Override
+    public void inOrder() {
+        inOrder(root);
+    }
+
+    private void preOrder(Node<T> node) {
+        if (node != null) {
+            System.out.print(" " + node.getValue() + "{" + node.getLevel() + "," + node.getCount() + "}");
+            preOrder(node.getLeft());
+            preOrder(node.getRight());
+        }
+    }
+
+    private void postOrder(Node<T> node) {
+        if (node != null) {
+            postOrder(node.getLeft());
+            postOrder(node.getRight());
+            System.out.print(" " + node.getValue() + "{" + node.getLevel() + "," + node.getCount() + "}");
+        }
+    }
+
+    private void inOrder(Node<T> node) {
+        if (node != null) {
+            inOrder(node.getLeft());
+            System.out.print(" " + node.getValue() + "{" + node.getLevel() + "," + node.getCount() + "}");
+            inOrder(node.getRight());
+        }
+    }
+
+    @Override
+    public int height() {
+        if (root == null) return 0;
+        return root.getHeight();
+    }
+
+    @Override
+    public void between(T start, T end) {
+
+    }
+
+    @Override
+    public int width() {
+        return nodeCount;
     }
 
     private void update(Node<T> node) {
@@ -133,107 +254,6 @@ public class avlTree<T extends Comparable<T>> implements Iterable<T> {
         update(node);
         update(newParent);
         return newParent;
-    }
-
-    public boolean remove(T elem) {
-        if (elem == null) return false;
-        if (contains(root, elem)) {
-            root = remove(root, elem);
-            nodeCount--;
-            return true;
-        }
-        return false;
-    }
-
-    private Node<T> remove(Node<T> node, T elem) {
-        if (node == null) return null;
-
-        if(elem.equals(node.getValue())){
-            if(node.getCount() > 0){
-                node.setCount(node.getCount() - 1);
-                return node;
-            }
-        }
-
-        int cmp = elem.compareTo(node.getValue());
-        if (cmp < 0) {
-            node.setLeft(remove(node.getLeft(), elem));
-        } else if (cmp > 0) {
-            node.setRight(remove(node.getRight(), elem));
-        } else {
-            if (node.getLeft() == null) {
-                return node.getRight();
-            } else if (node.getRight() == null) {
-                return node.getLeft();
-            } else {
-                if (node.getLeft().getHeight() > node.getRight().getHeight()) {
-                    T successorValue = findMax(node.getLeft());
-                    node.setValue(successorValue);
-                    node.setLeft(remove(node.getLeft(), successorValue));
-                } else {
-                    T successorValue = findMin(node.getRight());
-                    node.setValue(successorValue);
-                    node.setRight(remove(node.getRight(), successorValue));
-                }
-            }
-        }
-        update(node);
-        return balance(node);
-
-    }
-
-    private T findMin(Node<T> node) {
-        while (node.getLeft() != null)
-            node = node.getLeft();
-        return node.getValue();
-    }
-
-    private T findMax(Node<T> node) {
-        while (node.getRight() != null)
-            node = node.getRight();
-        return node.getValue();
-    }
-
-    public java.util.Iterator<T> iterator() {
-
-        final int expectedNodeCount = nodeCount;
-        final java.util.Stack<PrintableNode> stack = new java.util.Stack<>();
-        stack.push(root);
-
-        return new java.util.Iterator<T>() {
-            Node trav = root;
-
-            @Override
-            public boolean hasNext() {
-                if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
-                return root != null && !stack.isEmpty();
-            }
-
-            @Override
-            public T next() {
-
-                if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
-
-                while (trav != null && trav.getLeft() != null) {
-                    stack.push(trav.getLeft());
-                    trav = trav.getLeft();
-                }
-
-                PrintableNode<T> node = stack.pop();
-
-                if (node.getRight() != null) {
-                    stack.push(node.getRight());
-                    trav = node.getRight();
-                }
-
-                return (T) node.getValue();
-            }
-
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException();
-            }
-        };
     }
 
     @Override

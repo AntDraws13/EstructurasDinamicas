@@ -1,8 +1,9 @@
 package app;
 
+import List.*;
+import Stack.*;
 import Queue.*;
-import Tree.avlTree;
-import Tree.bTree;
+import Tree.*;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -14,16 +15,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Main {
 
     public static void main(String[] args) {
-        avlTree<Integer> avlTree = new avlTree<>(8);
-
-        for (int i = 0; i < 50; i ++){
-            avlTree.insert(Random(1,800));
-        }
-
-        System.out.println(avlTree.toString());
+        Listas<Integer> simpleList = new LinkedLista<>();
+        Listas<Integer> doubleList = new DoubleLinkedList<>();
+        Stacks<Integer> simpleStack = new StackSimpleList<>();
+        Stacks<Integer> doubleStack = new StackDoubleList<>();
+        Queue<Integer> simpleQueue = new QueueSimpleList<Integer>(10);
+        Queue<Integer> doubleQueue = new QueueDoubleList<Integer>(10);
+        Tree<Integer> binaryTree = new bTree<Integer>(5);
+        Tree<Integer> avlTree = new avlTree<Integer>(5);
     }
-
-
     public static int Random(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
