@@ -1,11 +1,7 @@
 package app;
 
-import List.*;
-import Stack.*;
-import Queue.*;
 import Tree.*;
 
-import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
