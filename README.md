@@ -154,7 +154,7 @@ Tree<Integer> tree = new avlTree(T value);
     
     boolean remove(T value);
 
-    T depthFirstSearch();
+    void depthFirstSearch();
     
     Node<T> search (T value) throws isEmptyException;
 
@@ -172,5 +172,5 @@ Tree<Integer> tree = new avlTree(T value);
     
     int width();
     
-    void between(T start, T end);
+    int between(T start, T end);
 ````
