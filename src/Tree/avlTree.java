@@ -6,10 +6,9 @@ import Nodes.PrintableNode;
 
 public class avlTree<T extends Comparable<T>> implements Tree<T> {
 
-
     private Node<T> root;
 
-    private int nodeCount = 0;
+    private int nodeCount = 0, height;
 
     public avlTree(T value) {
         root = new Node<>(value);
@@ -39,10 +38,11 @@ public class avlTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     private Node<T> insert(Node<T> node, T value) {
-        if (node == null){
-            Node<T> nod =  new Node(value);
+        if (node == null) {
+            Node<T> nod = new Node(value);
             nod.setCount(0);
-            return nod;
+            update(nod);
+            return balance(nod);
         }
         int cmp = value.compareTo(node.getValue());
         if (cmp < 0) {
@@ -70,8 +70,8 @@ public class avlTree<T extends Comparable<T>> implements Tree<T> {
 
     private Node<T> remove(Node<T> node, T elem) {
         if (node == null) return null;
-        if(elem.equals(node.getValue())){
-            if(node.getCount() > 0){
+        if (elem.equals(node.getValue())) {
+            if (node.getCount() > 0) {
                 node.setCount(node.getCount() - 1);
                 return node;
             }
@@ -104,12 +104,12 @@ public class avlTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     @Override
-    public T depthFirstSearch() {
-        return null;
+    public void breadthFirstTraversal() {
+        printByLevel();
     }
 
     @Override
-    public Node<T> search(T value){
+    public Node<T> search(T value) {
         return search(root, value);
     }
 
@@ -181,14 +181,75 @@ public class avlTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     @Override
-    public int height() {
-        if (root == null) return 0;
+
+    public int heightDesc() {
         return root.getHeight();
     }
 
     @Override
-    public void between(T start, T end) {
+    public int heightAsc() {
+        height = 0;
+        height(root, 1);
+        return height;
+    }
 
+    public void printLevel(int level) {
+        printLevel(root, level);
+    }
+
+
+    private void printByLevel() {
+        int h = heightAsc();
+        int i;
+        for (i = 1; i <= h; i++) {
+            System.out.print("Nivel " + i + " :");
+            printLevel(root, i);
+            System.out.println();
+        }
+    }
+
+    private void printLevel(Node<T> root, int level) {
+        if (root == null)
+            return;
+        if (level == 1)
+            System.out.print(root.getValue() + " ");
+        else if (level > 1) {
+            printLevel(root.getLeft(), level - 1);
+            printLevel(root.getRight(), level - 1);
+        }
+    }
+
+
+    private void height(Node<T> reco, int nivel) {
+        if (reco != null) {
+            reco.setLevel(nivel - 1);
+            height(reco.getLeft(), nivel + 1);
+            if (nivel > height) {
+                height = nivel;
+            }
+            reco.setLevel(nivel - 1);
+            height(reco.getRight(), nivel + 1);
+        }
+    }
+
+    @Override
+    public int between(T start, T end) {
+        return getCount(root, start, end);
+    }
+
+    private int getCount(Node<T> node, T low, T high) {
+        if (node == null) {
+            return 0;
+        }
+        if (node.getValue().compareTo(low) > 0 || node.getValue().equals(low)
+                && node.getValue().compareTo(high) < 0 || node.getValue().equals(high)) {
+            return 1 + this.getCount(node.getLeft(), low, high)
+                    + this.getCount(node.getRight(), low, high);
+        } else if (node.getValue().compareTo(low) < 0) {
+            return this.getCount(node.getRight(), low, high);
+        } else {
+            return this.getCount(node.getLeft(), low, high);
+        }
     }
 
     @Override

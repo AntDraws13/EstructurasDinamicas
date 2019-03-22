@@ -5,6 +5,7 @@ import Stack.*;
 import Queue.*;
 import Tree.*;
 
+import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -15,15 +16,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Main {
 
     public static void main(String[] args) {
-        Listas<Integer> simpleList = new LinkedLista<>();
-        Listas<Integer> doubleList = new DoubleLinkedList<>();
-        Stacks<Integer> simpleStack = new StackSimpleList<>();
-        Stacks<Integer> doubleStack = new StackDoubleList<>();
-        Queue<Integer> simpleQueue = new QueueSimpleList<Integer>(10);
-        Queue<Integer> doubleQueue = new QueueDoubleList<Integer>(10);
-        Tree<Integer> binaryTree = new bTree<Integer>(5);
-        Tree<Integer> avlTree = new avlTree<Integer>(5);
+        Tree<Integer> bTree = new bTree<Integer>(); //nuevo arbol con root  = 5
+        for (int i = 0; i<15; i++){
+            bTree.insert(Random(0,15)); //llenar el arbol random con 15 valores
+        }
+        System.out.println(bTree.toString()); //Imprimir estructura del arbol
+        bTree.breadthFirstTraversal(); //Impresión por nivel
+        System.out.println("Cantidad de nodos entre 8 y 20: "+bTree.between(8,20)); //La suma incluye nodos que tengan repetidos
     }
+
     public static int Random(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }

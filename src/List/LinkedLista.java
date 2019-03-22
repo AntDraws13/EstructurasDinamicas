@@ -21,12 +21,6 @@ public class LinkedLista<T extends Comparable<T>> implements Listas<T> {
         this.head = new Node<>();
     }
 
-    /**
-     * @param value LinkedList values to add
-     * @return if value has been successfully added, return true, else false
-     * @author Ant Hinojos
-     **/
-
     @Override
     public boolean Add(T value) {
         Node<T> _new = new Node<>(value);

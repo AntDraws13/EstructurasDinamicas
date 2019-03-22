@@ -3,7 +3,7 @@ package Nodes;
 public interface PrintableNode<T extends Comparable<T>> {
     Node<T> getPrev();
 
-    long getCount();
+    int getCount();
 
     void setCount(long count);
 

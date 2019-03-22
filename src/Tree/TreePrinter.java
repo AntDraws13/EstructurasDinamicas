@@ -1,17 +1,18 @@
 package Tree;
 
+import Nodes.Node;
 import Nodes.PrintableNode;
 
 import java.util.*;
 
 public class TreePrinter<T extends Comparable<T>> {
 
-    public static String getTreeDisplay(PrintableNode root) {
+    public static String getTreeDisplay(Node root) {
 
         StringBuilder sb = new StringBuilder();
         List<List<String>>  lines = new ArrayList<>();
-        List<PrintableNode> level = new ArrayList<>();
-        List<PrintableNode> next  = new ArrayList<>();
+        List<Node> level = new ArrayList<>();
+        List<Node> next  = new ArrayList<>();
 
         level.add(root);
         int nn = 1;
@@ -20,7 +21,7 @@ public class TreePrinter<T extends Comparable<T>> {
         while (nn != 0) {
             nn = 0;
             List<String> line = new ArrayList<String>();
-            for (PrintableNode n : level) {
+            for (Node n : level) {
                 if (n == null) {
                     line.add(null);
                     next.add(null);
@@ -42,7 +43,7 @@ public class TreePrinter<T extends Comparable<T>> {
 
             lines.add(line);
 
-            List<PrintableNode> tmp = level;
+            List<Node> tmp = level;
             level = next;
             next = tmp;
             next.clear();

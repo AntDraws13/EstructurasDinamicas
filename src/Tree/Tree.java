@@ -10,7 +10,7 @@ public interface Tree<T extends Comparable<T>> {
     boolean insert(Node<T> node);
     boolean remove(T value);
 
-    T depthFirstSearch();
+    void breadthFirstTraversal();
     Node<T> search (T value) throws isEmptyException;
 
     T biggest();
@@ -20,8 +20,9 @@ public interface Tree<T extends Comparable<T>> {
     void postOrder();
     void inOrder();
 
-    int height();
+    int heightDesc();
+    int heightAsc();
     int width();
-    void between(T start, T end);
+    int between(T start, T end);
 
 }

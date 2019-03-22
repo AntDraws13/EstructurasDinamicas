@@ -7,16 +7,24 @@ public class bTree<T extends Comparable<T>> implements Tree<T> {
 
     private Node<T> root;
     private int nodeCount;
+    int height;
 
     public bTree(Node<T> node) {
         this(node.getValue());
+    }
+
+    public bTree(){
+        root = new Node<>();
+        root.setCount(0);
+        root.setHeight(0);
+        root.setLevel(0);
     }
 
     public bTree(T value) {
         root = new Node<>(value);
         root.setCount(0);
         root.setHeight(0);
-        nodeCount++;
+        root.setLevel(0);
     }
 
     @Override
@@ -39,7 +47,7 @@ public class bTree<T extends Comparable<T>> implements Tree<T> {
         return true;
     }
 
-    private Node<T> insert(Node<T> node, T value, long level) {
+    private Node<T> insert(Node<T> node, T value, int level) {
         if (node == null) {
             Node<T> nod = new Node(value);
             nod.setLevel(level);
@@ -104,8 +112,8 @@ public class bTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     @Override
-    public T depthFirstSearch() {
-        return null;
+    public void breadthFirstTraversal() {
+        printByLevel();
     }
 
     @Override
@@ -177,8 +185,55 @@ public class bTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     @Override
-    public int height() {
+    public int heightDesc() {
         return root.getHeight();
+    }
+
+    @Override
+    public int heightAsc() {
+        height = 0;
+        height(root, 1);
+        return height;
+    }
+
+    public void printLevel(int level){
+        printLevel(root,level);
+    }
+
+    private void height(Node<T> reco, int nivel) {
+        if (reco != null) {
+            reco.setLevel(nivel - 1);
+            height(reco.getLeft(), nivel + 1);
+            if (nivel > height) {
+                height = nivel;
+            }
+            reco.setLevel(nivel - 1);
+            height(reco.getRight(), nivel + 1);
+        }
+    }
+
+    private void printByLevel()
+    {
+        int h = heightAsc();
+        int i;
+        for (i=1; i<=h; i++) {
+            System.out.print("Nivel " + i + " :");
+            printLevel(root, i);
+            System.out.println();
+        }
+    }
+
+    private void printLevel (Node<T> root ,int level)
+    {
+        if (root == null)
+            return;
+        if (level == 1)
+            System.out.print(root.getValue() + " ");
+        else if (level > 1)
+        {
+            printLevel(root.getLeft(), level-1);
+            printLevel(root.getRight(), level-1);
+        }
     }
 
     @Override
@@ -187,8 +242,23 @@ public class bTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     @Override
-    public void between(T start, T end) {
+    public int between(T start, T end) {
+        return getCount(root, start, end);
+    }
 
+    private int getCount(Node<T> node, T low, T high) {
+        if (node == null) {
+            return 0;
+        }
+        if (node.getValue().compareTo(low) > 0 || node.getValue().equals(low)
+                && node.getValue().compareTo(high) < 0 || node.getValue().equals(high)) {
+            return (1 + node.getCount()+ this.getCount(node.getLeft(), low, high)
+                    + this.getCount(node.getRight(), low, high));
+        } else if (node.getValue().compareTo(low) < 0) {
+            return this.getCount(node.getRight(), low, high);
+        } else {
+            return this.getCount(node.getLeft(), low, high);
+        }
     }
 
     @Override
