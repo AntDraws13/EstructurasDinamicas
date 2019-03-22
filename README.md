@@ -154,7 +154,9 @@ Tree<Integer> tree = new avlTree(T value);
     
     boolean remove(T value);
 
-    void depthFirstSearch();
+    void breadthFirstTraversal();
+    
+    void printLevel(int level);
     
     Node<T> search (T value) throws isEmptyException;
 
@@ -169,7 +171,11 @@ Tree<Integer> tree = new avlTree(T value);
     void inOrder();
 
     int height();
+      
+    int heightAsc();
     
+    int heightDesc();
+      
     int width();
     
     int between(T start, T end);
